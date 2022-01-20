@@ -45,16 +45,13 @@ with key.unlock("MT32I0S_P@s$PhrAs3_pkey"):
 encrypted_message = subkey.pubkey.encrypt(message)
 print(f"\n\nEncrypted message: {encrypted_message}\n")
 
-# Although encryoting  things uses multiple methods, there is only one method to remember for verifying
-key.pubkey.verify(message)
-
-
 # Decrypt message
 with key.unlock("new_P@s$PhrAs3_skey"):
 	assert key.is_protected
 	with subkey.unlock("new_P@s$PhrAs3_skey"):
 		assert subkey.is_unlocked
 		decrypted_message = subkey.decrypt(encrypted_message)
-        
+
+# Verify signature
 print(f"\n\nDecrypted message verify signature: {key.pubkey.verify(decrypted_message)}")
 print(f"\n\nDecrypted message: {decrypted_message.message}\n")
